@@ -1,5 +1,5 @@
-🧠 PageSim-OS
-Interactive Page Replacement Algorithm Simulator
+**🧠 PageSim-OS**
+**Interactive Page Replacement Algorithm Simulator**
 
 An interactive web-based simulator that visualizes and compares page replacement algorithms used in Operating Systems.
 
