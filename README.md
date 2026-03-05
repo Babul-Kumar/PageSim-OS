@@ -1,4 +1,7 @@
 **🧠 PageSim-OS**
+
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green)](https://pagesim-os.vercel.app)
+
 **Interactive Page Replacement Algorithm Simulator**
 
 An interactive web-based simulator that visualizes and compares page replacement algorithms used in Operating Systems.
