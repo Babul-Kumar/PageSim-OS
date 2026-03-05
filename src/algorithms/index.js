@@ -1,10 +1,12 @@
 import { simulateFIFO } from "./fifo";
 import { simulateLRU } from "./lru";
 import { simulateOptimal } from "./optimal";
+import { generateBeladySeries } from "../utils/belady";
 
 export { ALGORITHM_LABELS, ALGORITHM_DESCRIPTIONS } from "./constants";
 export { parseReferenceString } from "./parseReferenceString";
 export { simulateFIFO, simulateLRU, simulateOptimal };
+export { generateBeladySeries };
 
 const RUNNERS = {
   fifo: simulateFIFO,

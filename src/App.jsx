@@ -12,8 +12,7 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import { ALGORITHM_LABELS, parseReferenceString, runSimulations } from "./algorithms";
-import { generateBeladySeries } from "./utils/belady";
+import { ALGORITHM_LABELS, parseReferenceString, runSimulations, generateBeladySeries } from "./algorithms";
 import { AlgorithmExplanationPanel, MetricCard, SimulationTable } from "./components";
 
 ChartJS.register(
