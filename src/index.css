@@ -15,8 +15,10 @@
   }
 
   body {
+    position: relative;
     margin: 0;
     min-height: 100vh;
+    overflow-x: hidden;
     background:
       radial-gradient(circle at 12% 18%, rgba(20, 184, 166, 0.24), transparent 48%),
       radial-gradient(circle at 82% 8%, rgba(251, 146, 60, 0.25), transparent 44%),
@@ -24,6 +26,41 @@
     color: #12352e;
     background-size: 120% 120%, 125% 125%, 100% 100%;
     animation: driftBackground 20s ease-in-out infinite;
+  }
+
+  body::before,
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::before {
+    opacity: 0.75;
+    background:
+      radial-gradient(circle at 8% 110%, rgba(20, 184, 166, 0.28) 0 10px, transparent 12px),
+      radial-gradient(circle at 18% 114%, rgba(56, 189, 248, 0.26) 0 14px, transparent 16px),
+      radial-gradient(circle at 32% 108%, rgba(45, 212, 191, 0.24) 0 9px, transparent 11px),
+      radial-gradient(circle at 48% 112%, rgba(14, 165, 233, 0.24) 0 12px, transparent 14px),
+      radial-gradient(circle at 64% 109%, rgba(20, 184, 166, 0.22) 0 11px, transparent 13px),
+      radial-gradient(circle at 80% 115%, rgba(103, 232, 249, 0.25) 0 13px, transparent 15px),
+      radial-gradient(circle at 92% 111%, rgba(56, 189, 248, 0.24) 0 10px, transparent 12px);
+    animation: bubbleRisePrimary 18s linear infinite;
+  }
+
+  body::after {
+    opacity: 0.65;
+    filter: blur(0.5px);
+    background:
+      radial-gradient(circle at 14% 116%, rgba(56, 189, 248, 0.2) 0 8px, transparent 10px),
+      radial-gradient(circle at 26% 112%, rgba(20, 184, 166, 0.2) 0 11px, transparent 13px),
+      radial-gradient(circle at 40% 118%, rgba(94, 234, 212, 0.22) 0 9px, transparent 11px),
+      radial-gradient(circle at 58% 113%, rgba(14, 165, 233, 0.22) 0 8px, transparent 10px),
+      radial-gradient(circle at 72% 117%, rgba(45, 212, 191, 0.22) 0 10px, transparent 12px),
+      radial-gradient(circle at 86% 114%, rgba(125, 211, 252, 0.21) 0 9px, transparent 11px);
+    animation: bubbleRiseSecondary 24s linear infinite;
   }
 
   .dark body {
@@ -34,6 +71,17 @@
     color: #dcf5ec;
     background-size: 120% 120%, 125% 125%, 100% 100%;
     animation: driftBackground 20s ease-in-out infinite;
+  }
+
+  .dark body::before,
+  .dark body::after {
+    opacity: 0;
+    animation: none;
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
   }
 }
 
@@ -103,5 +151,41 @@
   }
   100% {
     background-position: 0% 0%, 100% 0%, 0% 0%;
+  }
+}
+
+@keyframes bubbleRisePrimary {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-24vh) translateX(1.2vw);
+  }
+  50% {
+    transform: translateY(-48vh) translateX(-0.8vw);
+  }
+  75% {
+    transform: translateY(-72vh) translateX(1vw);
+  }
+  100% {
+    transform: translateY(-108vh) translateX(0);
+  }
+}
+
+@keyframes bubbleRiseSecondary {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  20% {
+    transform: translateY(-20vh) translateX(-1vw);
+  }
+  45% {
+    transform: translateY(-45vh) translateX(1.1vw);
+  }
+  70% {
+    transform: translateY(-70vh) translateX(-0.9vw);
+  }
+  100% {
+    transform: translateY(-110vh) translateX(0);
   }
 }

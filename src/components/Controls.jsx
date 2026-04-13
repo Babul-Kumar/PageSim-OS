@@ -1,4 +1,4 @@
-function Controls({ onStart, onStep, onReset, disableStep }) {
+function Controls({ onStart, onStep, onReset, disableStep, isAutoPlaying }) {
   return (
     <section className="surface-card">
       <h2 className="mb-4 text-xl font-bold text-teal-950 dark:text-teal-50">
@@ -8,9 +8,10 @@ function Controls({ onStart, onStep, onReset, disableStep }) {
         <button
           type="button"
           onClick={onStart}
-          className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 px-5 py-2.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:from-emerald-400 hover:to-teal-500 sm:w-auto"
+          disabled={isAutoPlaying}
+          className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 px-5 py-2.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:from-emerald-400 hover:to-teal-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
         >
-          Start Simulation
+          {isAutoPlaying ? 'Playing...' : 'Start Simulation'}
         </button>
         <button
           type="button"

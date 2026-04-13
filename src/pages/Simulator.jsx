@@ -18,6 +18,7 @@ import {
 const DEFAULT_FRAMES = '3'
 const DEFAULT_REFERENCE = '7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2'
 const DEFAULT_ALGORITHM = 'FIFO'
+const START_SIMULATION_STEP_DELAY = 650
 const sectionDelayStyle = (delay) => ({
   animationDelay: `${delay}ms`,
   animationFillMode: 'both',
@@ -34,6 +35,7 @@ function Simulator() {
   const [currentStep, setCurrentStep] = useState(-1)
   const [simulationHash, setSimulationHash] = useState('')
   const [lastExecutedAlgorithm, setLastExecutedAlgorithm] = useState(DEFAULT_ALGORITHM)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false)
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode)
@@ -43,6 +45,7 @@ function Simulator() {
     setResultsByAlgorithm({})
     setCurrentStep(-1)
     setSimulationHash('')
+    setIsAutoPlaying(false)
   }
 
   const runSimulation = () => {
@@ -78,12 +81,20 @@ function Simulator() {
     }
 
     const selectedResult = simulationData.computedResults[selectedAlgorithm]
-    const finalStepIndex = selectedResult.steps.length - 1
-    setCurrentStep(finalStepIndex)
+    if (selectedResult.steps.length === 0) {
+      setCurrentStep(-1)
+      setIsAutoPlaying(false)
+      return
+    }
+
+    setCurrentStep(0)
+    setIsAutoPlaying(selectedResult.steps.length > 1)
     setLastExecutedAlgorithm(selectedAlgorithm)
   }
 
   const handleStepSimulation = () => {
+    setIsAutoPlaying(false)
+
     const simulationData = runSimulation()
     if (!simulationData) {
       return
@@ -110,6 +121,7 @@ function Simulator() {
     setSelectedAlgorithm(DEFAULT_ALGORITHM)
     setErrorMessage('')
     setIsDarkMode(false)
+    setIsAutoPlaying(false)
     setLastExecutedAlgorithm(DEFAULT_ALGORITHM)
     clearCurrentSimulation()
   }
@@ -139,15 +151,41 @@ function Simulator() {
     return selectedResult.steps.slice(0, currentStep + 1)
   }, [selectedResult, currentStep])
 
-  const comparisonRows = useMemo(
-    () => comparisonRowsFromResults(resultsByAlgorithm),
-    [resultsByAlgorithm],
-  )
+  const comparisonRows = useMemo(() => {
+    if (!isStepCompleted) {
+      return []
+    }
+    return comparisonRowsFromResults(resultsByAlgorithm)
+  }, [resultsByAlgorithm, isStepCompleted])
 
   const bestPerformer = useMemo(
     () => findBestPerformer(comparisonRows),
     [comparisonRows],
   )
+
+  useEffect(() => {
+    if (!isAutoPlaying || !selectedResult?.steps?.length) {
+      return
+    }
+
+    const finalStepIndex = selectedResult.steps.length - 1
+    const timerId = window.setInterval(() => {
+      let reachedFinalStep = false
+
+      setCurrentStep((previousStep) => {
+        const nextStep = Math.min(previousStep + 1, finalStepIndex)
+        reachedFinalStep = nextStep >= finalStepIndex
+        return nextStep
+      })
+
+      if (reachedFinalStep) {
+        window.clearInterval(timerId)
+        setIsAutoPlaying(false)
+      }
+    }, START_SIMULATION_STEP_DELAY)
+
+    return () => window.clearInterval(timerId)
+  }, [isAutoPlaying, selectedResult])
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-6 md:px-6 md:py-10">
@@ -189,7 +227,10 @@ function Simulator() {
             onStart={handleStartSimulation}
             onStep={handleStepSimulation}
             onReset={handleReset}
-            disableStep={isStepCompleted && selectedAlgorithm === lastExecutedAlgorithm}
+            disableStep={
+              isAutoPlaying || (isStepCompleted && selectedAlgorithm === lastExecutedAlgorithm)
+            }
+            isAutoPlaying={isAutoPlaying}
           />
         </div>
 
@@ -300,7 +341,11 @@ function Simulator() {
         </section>
 
         <div className="enter-up" style={sectionDelayStyle(320)}>
-          <ComparisonChart comparisonRows={comparisonRows} isDarkMode={isDarkMode} />
+          <ComparisonChart
+            comparisonRows={comparisonRows}
+            isDarkMode={isDarkMode}
+            isReady={isStepCompleted}
+          />
         </div>
 
         {bestPerformer ? (

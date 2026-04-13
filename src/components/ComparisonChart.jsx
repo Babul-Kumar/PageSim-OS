@@ -19,7 +19,7 @@ const BAR_COLORS = {
 }
 const CHART_LABELS = ['Page Faults', 'Page Hits', 'Hit Ratio (%)']
 
-function ComparisonChart({ comparisonRows, isDarkMode }) {
+function ComparisonChart({ comparisonRows, isDarkMode, isReady }) {
   const data = useMemo(
     () => ({
       labels: CHART_LABELS,
@@ -109,7 +109,11 @@ function ComparisonChart({ comparisonRows, isDarkMode }) {
         Comparison Chart (FIFO vs LRU vs Optimal)
       </h2>
 
-      {comparisonRows.length === 0 ? (
+      {!isReady ? (
+        <p className="text-sm text-teal-700 dark:text-teal-300">
+          Complete the simulation to generate the final algorithm comparison.
+        </p>
+      ) : comparisonRows.length === 0 ? (
         <p className="text-sm text-teal-700 dark:text-teal-300">
           Run any simulation to generate an algorithm comparison chart.
         </p>
