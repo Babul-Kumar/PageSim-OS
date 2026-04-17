@@ -1,29 +1,75 @@
-# Efficient Page Replacement Algorithm Simulator
+# 🚀 Efficient Page Replacement Algorithm Simulator
 
-Interactive simulator for understanding and comparing page replacement algorithms:
+An interactive, production-ready web application to **visualize and compare page replacement algorithms** used in Operating Systems.
 
-- FIFO (First In First Out)
-- LRU (Least Recently Used)
-- Optimal
+🔗 **Live Demo:** https://page-sim-os-ovjs.vercel.app/
 
-Built with:
+---
 
-- React (Vite, JavaScript)
-- Tailwind CSS
-- Chart.js (`react-chartjs-2`)
+## 📌 Overview
 
-## Features
+This simulator helps users understand how memory management works by visually demonstrating how different page replacement algorithms behave step-by-step.
 
-- Real-time memory frame simulation
-- Step-by-step execution mode
-- Hit/Fault highlighting
-- Evicted page tracking
-- Stats panel (faults, hits, hit ratio)
-- Comparison chart for FIFO vs LRU vs Optimal
-- Dark mode toggle
-- Best algorithm insight
+It supports:
 
-## Project Structure
+* **FIFO (First In First Out)**
+* **LRU (Least Recently Used)**
+* **Optimal (Theoretical Best)**
+
+---
+
+## ✨ Features
+
+### 🎯 Simulation
+
+* Real-time memory frame visualization
+* Step-by-step execution mode
+* Auto-play with speed control
+* Page hit / fault highlighting
+* Evicted page tracking
+
+### 📊 Analytics
+
+* Page Fault count
+* Page Hit count
+* Hit Ratio calculation
+* Dynamic stats update per step
+
+### 📈 Comparison Mode
+
+* Compare FIFO vs LRU vs Optimal
+* Interactive bar chart (Chart.js)
+* Best algorithm insight detection
+
+### 🎨 UI/UX
+
+* Fully responsive (mobile + desktop)
+* Smooth animations and transitions
+* Dark mode UI
+* Scrollable grid & tables (no layout breaking)
+
+---
+
+## 🧠 Algorithms Explained
+
+| Algorithm   | Strategy                                      |
+| ----------- | --------------------------------------------- |
+| **FIFO**    | Replaces the oldest loaded page               |
+| **LRU**     | Replaces the least recently used page         |
+| **Optimal** | Replaces the page used farthest in the future |
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** React (Vite, JavaScript)
+* **Styling:** Tailwind CSS
+* **Charts:** Chart.js (`react-chartjs-2`)
+* **Deployment:** Vercel
+
+---
+
+## 📂 Project Structure
 
 ```text
 src/
@@ -31,62 +77,126 @@ src/
     fifo.js
     lru.js
     optimal.js
+
   components/
     ComparisonChart.jsx
     Controls.jsx
     InputForm.jsx
     MemoryGrid.jsx
     StatsPanel.jsx
+    StepTable.jsx
+    PageReel.jsx
+
   pages/
     Simulator.jsx
+
   utils/
     helpers.js
+
   App.jsx
   index.css
   main.jsx
 ```
 
-## Setup Instructions
+---
 
-1. Install dependencies:
+## ⚙️ Setup Instructions
+
+### 1️⃣ Install dependencies
 
 ```bash
 npm install
 ```
 
-2. Start development server:
+### 2️⃣ Run development server
 
 ```bash
 npm run dev
 ```
 
-3. Open the local URL shown in terminal (usually `http://localhost:5173`).
+### 3️⃣ Open in browser
 
-## Build and Preview
+```
+http://localhost:5173
+```
 
-1. Build production files:
+---
+
+## 🏗️ Build & Preview
+
+### Build production version
 
 ```bash
 npm run build
 ```
 
-2. Preview production build:
+### Preview build
 
 ```bash
 npm run preview
 ```
 
-## How to Use
+---
 
-1. Enter number of frames.
-2. Enter reference string (comma-separated), for example: `7, 0, 1, 2, 0, 3, 0, 4`.
-3. Select algorithm (`FIFO`, `LRU`, or `Optimal`).
+## 🧪 How to Use
+
+1. Enter **number of frames**
+2. Enter **page reference string**
+   Example:
+
+   ```
+   7, 0, 1, 2, 0, 3, 0, 4
+   ```
+3. Select algorithm:
+
+   * FIFO
+   * LRU
+   * Optimal
 4. Click:
-   - `Start Simulation` to run full simulation immediately.
-   - `Step-by-Step Execution` to advance one step at a time.
-   - `Reset` to restore defaults.
-5. Check:
-   - Memory Frame Visualization Grid
-   - Step-by-step execution table
-   - Stats Panel
-   - Comparison Chart
+
+   * ▶ **Run Simulation**
+   * ⏭ **Step-by-Step**
+   * 🔄 **Reset**
+
+---
+
+## 📊 Output Sections
+
+* 🧩 Memory Frame Grid
+* 📋 Step-by-step Table
+* 📈 Statistics Panel
+* 📊 Comparison Chart
+
+---
+
+## 💡 Key Highlights
+
+* Handles large inputs efficiently (optimized rendering)
+* Prevents UI overflow using scroll-based layout system
+* Uses memoization (`useMemo`, `memo`) for performance
+* Clean separation of concerns:
+
+  * Algorithms → Logic
+  * Components → UI
+  * Simulator → State management
+
+---
+
+## 🚀 Future Improvements
+
+* Export simulation results (CSV / PDF)
+* Add more algorithms (Clock, LFU)
+* Keyboard controls for navigation
+* Save & load test cases
+
+---
+
+## 👨‍💻 Author
+
+**Babul Kumar**
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
