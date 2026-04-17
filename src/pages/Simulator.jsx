@@ -366,10 +366,11 @@ function Simulator() {
           </section>
         ) : null}
       </div>
-    </main>
-    <p className="section-subtitle mt-8 text-center text-xs md:text-sm">
+      <p className="section-subtitle mt-8 text-center text-xs md:text-sm">
         Developed by Botbros(Babul,Aswati,Tejjas)
-    </p>
+      </p>
+    </main>
+    
   )
 }
 
