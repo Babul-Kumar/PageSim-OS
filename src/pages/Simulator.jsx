@@ -366,8 +366,9 @@ function Simulator() {
           </section>
         ) : null}
       </div>
+      
       <p className="section-subtitle mt-8 text-center text-xs md:text-sm">
-        Developed by Botbros(Babul,Aswati,Tejjas)
+        Developed by <span className="botbros">Botbros(Babul,Aswati,Tejjas)</span>
       </p>
     </main>
     
